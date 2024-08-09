@@ -9,5 +9,10 @@
         public string CodigoISBN { get; set; }
         public string Paginas { get; set; }
         public List<Autor> Autores { get; set; }
+
+        public Livro()
+        {
+			Autores = new List<Autor>();
+		}
     }
 }
