@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClubeDoLivro.Testes", "Club
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClubeDoLivro", "ClubeDoLivro\ClubeDoLivro.csproj", "{AA7A8199-1781-4EF6-B1D7-E50C774D3B7A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClubeDoLivro.Blazor", "..\ClubeDoLivro.Blazor\ClubeDoLivro.Blazor.csproj", "{EB472E88-1DB6-4F13-9921-5747B00E2F5E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{AA7A8199-1781-4EF6-B1D7-E50C774D3B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA7A8199-1781-4EF6-B1D7-E50C774D3B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA7A8199-1781-4EF6-B1D7-E50C774D3B7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB472E88-1DB6-4F13-9921-5747B00E2F5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB472E88-1DB6-4F13-9921-5747B00E2F5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB472E88-1DB6-4F13-9921-5747B00E2F5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB472E88-1DB6-4F13-9921-5747B00E2F5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
