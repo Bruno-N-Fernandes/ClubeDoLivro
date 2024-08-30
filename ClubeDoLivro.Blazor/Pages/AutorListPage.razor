@@ -1,0 +1,38 @@
+﻿@page "/autor"
+
+<PageTitle>Clube Do Livro :: Autores</PageTitle>
+
+<h1>Autores</h1>
+
+
+@if (autores == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Sobrenome</th>
+                <th>Livros Escritos</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var autor in autores)
+            {
+                <tr>
+                    <td>@autor.Id</td>
+                    <td>@autor.Nome</td>
+                    <td>@autor.Sobrenome</td>
+                    <td>@autor.LivrosEscritos</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" @OnClick=abrirTelaParaCadastrarAutor>Adicionar</MudButton>
+
+
+}
