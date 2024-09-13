@@ -1,34 +1,10 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">ClubeDoLivro.Blazor</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
-
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="autor">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Autores
-            </NavLink>
-        </div>
-    </nav>
-</div>
-
-@code {
-    private bool collapseNavMenu = true;
-
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}
+﻿
+<MudNavMenu>
+	<MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home" IconColor="Color.Inherit">Home</MudNavLink>
+	<MudNavGroup Icon="@Icons.Material.Filled.Handyman" Title="Cadastros">
+		<MudNavLink Href="/autor" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.BarChart" IconColor="Color.Inherit">Autor</MudNavLink>
+	</MudNavGroup>
+	<MudNavGroup Icon="@Icons.Material.Filled.Verified" Title="Versão">
+		<MudNavLink>1.0.0.0</MudNavLink>
+	</MudNavGroup>
+</MudNavMenu>

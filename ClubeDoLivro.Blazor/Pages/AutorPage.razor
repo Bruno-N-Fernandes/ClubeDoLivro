@@ -1,13 +1,19 @@
-﻿@page "/autores"
+﻿<MudDialog>
+	<DialogContent>
+		<h1>Autor</h1>
 
+		<MudTextField Label="Id" Variant="Variant.Outlined" Margin="Margin.Dense" Value="Autor.Id"></MudTextField>
+		<MudTextField Label="Nome" Variant="Variant.Outlined" Margin="Margin.Dense" @bind-Value="Autor.Nome"></MudTextField>
+		<MudTextField Label="Sobrenome" Variant="Variant.Outlined" Margin="Margin.Dense" @bind-Value="Autor.Sobrenome"></MudTextField>
+		<MudTextField Label="LivrosEscritos" Variant="Variant.Outlined" Margin="Margin.Dense" ReadOnly Value="Autor.LivrosEscritos"></MudTextField>
 
-<h1>Autor</h1>
+		<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick=Confirmar>Confirmar</MudButton>
+		<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick=Cancelar>Cancelar</MudButton>
 
-<MudTextField Label="Id" Variant="Variant.Outlined" Margin="Margin.Dense" Value="autor.Id"></MudTextField>
-<MudTextField Label="Nome" Variant="Variant.Outlined" Margin="Margin.Dense" @bind-Value="autor.Nome"></MudTextField>
-<MudTextField Label="Sobrenome" Variant="Variant.Outlined" Margin="Margin.Dense" @bind-Value="autor.Sobrenome"></MudTextField>
-<MudTextField Label="LivrosEscritos" Variant="Variant.Outlined" Margin="Margin.Dense" ReadOnly Value="autor.LivrosEscritos"></MudTextField>
+	</DialogContent>
+	<DialogActions>
+		<MudButton OnClick="Cancelar">Cancelar</MudButton>
+		<MudButton OnClick="()=>{}" Color="Color.Primary">Calcular</MudButton>
+	</DialogActions>
 
-<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick=Confirmar>Confirmar</MudButton>
-<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick=Cancelar>Cancelar</MudButton>
-
+</MudDialog>

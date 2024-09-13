@@ -1,16 +1,44 @@
 ﻿@inherits LayoutComponentBase
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
+@* Required *@
+<MudThemeProvider @bind-IsDarkMode="@DarkModeThemeEnabled" />
+<MudPopoverProvider />
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+@* Needed for dialogs *@
+<MudDialogProvider />
+
+@* Needed for snackbars *@
+<MudSnackbarProvider />
+
+
+
+
+<MudLayout>
+	<MudAppBar Dense Elevation="1">
+		<MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@(e => DrawerToggle())" />
+		<MudToggleIconButton @bind-Toggled="@DarkModeThemeEnabled" Icon="@Icons.Material.Filled.LightMode" Variant="Variant.Filled" Color="Color.Primary" Title="LightMode" ToggledIcon="@Icons.Material.Filled.DarkMode" ToggledTitle="DarkMode" />
+	</MudAppBar>
+	<MudDrawer @bind-Open="DrawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+		<NavMenu />
+	</MudDrawer>
+	<MudMainContent>
+		@Body
+		<MudScrollToTop>
+			<MudFab Size="Size.Small" Color="Color.Primary" StartIcon="@Icons.Material.Filled.ArrowUpward" />
+		</MudScrollToTop>
+	</MudMainContent>
+</MudLayout>
+
+@code {
+
+	private bool DrawerOpen { get; set; } = true;
+	private bool _darkModeThemeEnabled;
+
+	public bool DarkModeThemeEnabled
+	{
+		get => _darkModeThemeEnabled;
+		set => _darkModeThemeEnabled = value;
+	}
+
+	private void DrawerToggle() => DrawerOpen = !DrawerOpen;
+}

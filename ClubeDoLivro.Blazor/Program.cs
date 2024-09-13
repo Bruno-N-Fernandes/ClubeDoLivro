@@ -1,13 +1,10 @@
-global using System.Net.Http;
-global using System.Net.Http.Json;
-
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
 
 namespace ClubeDoLivro.Blazor
 {
-	public class Program
+    public class Program
 	{
 		public static async Task Main(string[] args)
 		{

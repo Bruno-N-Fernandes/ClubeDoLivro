@@ -1,16 +1,15 @@
-﻿@page "/autor"
-
-<PageTitle>Clube Do Livro :: Autores</PageTitle>
+﻿<PageTitle>Clube Do Livro :: Autores</PageTitle>
 
 <h1>Autores</h1>
 
-
-@if (autores == null)
+@if (Autores == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="e=>OpenPopup()">Adicionar</MudButton>
+
     <table class="table">
         <thead>
             <tr>
@@ -21,7 +20,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var autor in autores)
+            @foreach (var autor in Autores)
             {
                 <tr>
                     <td>@autor.Id</td>
@@ -32,7 +31,6 @@ else
             }
         </tbody>
     </table>
-    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick=abrirTelaParaCadastrarAutor>Adicionar</MudButton>
 
 
 }

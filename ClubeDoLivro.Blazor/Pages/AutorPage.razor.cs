@@ -7,13 +7,16 @@ namespace ClubeDoLivro.Blazor.Pages
     {
         [Inject]
         public HttpClient HttpClient { get; set; }
+  
+        [Parameter]
+        public Autor Autor { get; set; }
 
-       public Autor autor { get; set; }
+        [Parameter]
+        public bool PodeRemover { get; set; } = false;
+
 
         protected override async Task OnInitializedAsync()
         {
-            autor = new Autor {};
-
             await base.OnInitializedAsync();
         }
 
