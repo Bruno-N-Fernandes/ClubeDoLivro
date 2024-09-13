@@ -7,13 +7,11 @@
 		<MudTextField Label="Sobrenome" Variant="Variant.Outlined" Margin="Margin.Dense" @bind-Value="Autor.Sobrenome"></MudTextField>
 		<MudTextField Label="LivrosEscritos" Variant="Variant.Outlined" Margin="Margin.Dense" ReadOnly Value="Autor.LivrosEscritos"></MudTextField>
 
-		<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick=Confirmar>Confirmar</MudButton>
-		<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick=Cancelar>Cancelar</MudButton>
 
 	</DialogContent>
 	<DialogActions>
-		<MudButton OnClick="Cancelar">Cancelar</MudButton>
-		<MudButton OnClick="()=>{}" Color="Color.Primary">Calcular</MudButton>
+		<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick=Confirmar>Confirmar</MudButton>
+		<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick=Cancelar>Cancelar</MudButton>
 	</DialogActions>
 
 </MudDialog>

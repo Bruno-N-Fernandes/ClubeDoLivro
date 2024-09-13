@@ -37,20 +37,32 @@ namespace ClubeDoLivro.Blazor.Pages
         {
             var parameters = new DialogParameters
             {
-                { "autor", autor ?? new Autor() },
+                { "autor", autor?.Clone() ?? new Autor() },
                 { "podeRemover", podeRemover }
             };
 
             var options = new DialogOptions { CloseOnEscapeKey = true, FullWidth = true };
-            var dialog = DialogService.Show<AutorPage>("", parameters, options);
+            var dialog = DialogService.Show<AutorPage>("Autor", parameters, options);
             var result = await dialog.Result;
 
             if (!result.Canceled)
             {
                 if (podeRemover)
                     Autores = Autores.Where(n => n.Id != autor.Id).ToList();
-                //else
-                    //autor?.Atualizar(result.Data as Autor);
+                else
+                {
+                    if (autor == null)
+                    {
+                        Autores.Add(result.Data as Autor);
+                    }
+                    else
+                    {
+                        var autorAlterado = result.Data as Autor;
+                        autor.Nome = autorAlterado.Nome;
+                        autor.Sobrenome = autorAlterado.Sobrenome;
+                    }
+
+                }
 
                 StateHasChanged();
             }

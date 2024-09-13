@@ -1,11 +1,16 @@
 ﻿using ClubeDoLivro.Domains;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 
 namespace ClubeDoLivro.Blazor.Pages
 {
     public partial class AutorPage
     {
-        [Inject]
+
+		[CascadingParameter]
+		public MudDialogInstance MudDialog { get; set; }
+
+		[Inject]
         public HttpClient HttpClient { get; set; }
   
         [Parameter]
@@ -23,14 +28,14 @@ namespace ClubeDoLivro.Blazor.Pages
 
         public async Task Confirmar()
         {
-
-            await Task.CompletedTask;
-        }
+			MudDialog.Close(DialogResult.Ok(Autor));
+			await Task.CompletedTask;
+		}
 
         public async Task Cancelar()
         {
-
-            await Task.CompletedTask;
+			MudDialog.Close(DialogResult.Cancel());
+			await Task.CompletedTask;
         }
     }
 }

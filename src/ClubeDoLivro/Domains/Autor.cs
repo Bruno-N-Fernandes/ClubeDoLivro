@@ -34,5 +34,8 @@ namespace ClubeDoLivro.Domains
 				!string.IsNullOrWhiteSpace(Nome)
 				&& !string.IsNullOrWhiteSpace(Sobrenome);
 		}
+
+		public Autor Clone() => MemberwiseClone() as Autor;
+
 	}
 }
