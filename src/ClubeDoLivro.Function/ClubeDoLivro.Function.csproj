@@ -34,6 +34,10 @@
 		<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.34.0" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\ClubeDoLivro\ClubeDoLivro.csproj" />
+	</ItemGroup>
 	<ItemGroup>
 		<None Update="host.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
