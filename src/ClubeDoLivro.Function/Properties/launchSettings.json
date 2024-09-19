@@ -1,9 +1,10 @@
 {
   "profiles": {
     "ClubeDoLivro.Function": {
-      "commandName": "Project",
-      "commandLineArgs": "--port 7150",
-      "launchBrowser": false
+        "commandName": "Project",
+        "commandLineArgs": "--port 7150",
+        "launchBrowser": false,
+        "launchUrl": "http://localhost:7150/api/swagger/ui"
     }
   }
 }

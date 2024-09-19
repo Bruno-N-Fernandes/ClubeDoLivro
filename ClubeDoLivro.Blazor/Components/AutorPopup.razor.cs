@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
-namespace ClubeDoLivro.Blazor.Pages
+namespace ClubeDoLivro.Blazor.Components
 {
-    public partial class AutorPage
+    public partial class AutorPopup
     {
 
 		[CascadingParameter]
