@@ -10,8 +10,9 @@
 
 	</DialogContent>
 	<DialogActions>
-		<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick=Confirmar>Confirmar</MudButton>
-		<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick=Cancelar>Cancelar</MudButton>
+		<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Confirmar" hidden="@PodeRemover" > Confirmar</MudButton>
+		<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Remover" hidden=@(!PodeRemover) >Remover</MudButton>
+		<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Cancelar" >Cancelar</MudButton>
 	</DialogActions>
 
 </MudDialog>

@@ -6,7 +6,7 @@ using MudBlazor;
 namespace ClubeDoLivro.Blazor.Pages
 {
 	[Route("/Autor"), Route("/Autor/{id}")]
-	public partial class AutorListPage
+	public partial class AutorPage
 	{
 		[Inject]
 		public HttpClient HttpClient { get; set; }

@@ -6,6 +6,7 @@ using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.OpenApi.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace ClubeDoLivro.Function.Controllers
 	{
 		private const string ModelName = "Autor";
 
-		private readonly static Autor[] _autores = [
+		private readonly static List<Autor> _autores = [
 			new Autor { Id = 1, Nome = "Bruno", Sobrenome = "Fernandes" },
 			new Autor { Id = 2, Nome = "Walmir", Sobrenome = "Oliveira" },
 			new Autor { Id = 3, Nome = "Ricardo", Sobrenome = "Castello"},
@@ -38,7 +39,7 @@ namespace ClubeDoLivro.Function.Controllers
 		{
 			try
 			{
-				return new OkObjectResult(_autores);
+				return _autores;
 			}
 			catch (Exception exception)
 			{
@@ -58,7 +59,7 @@ namespace ClubeDoLivro.Function.Controllers
 			try
 			{
 				var autor = _autores.FirstOrDefault(x => x.Id == id);
-				return new OkObjectResult(autor);
+				return autor;
 			}
 			catch (Exception exception)
 			{
@@ -78,7 +79,10 @@ namespace ClubeDoLivro.Function.Controllers
 		{
 			try
 			{
-				return new OkResult();
+				var autor = await GetFromBody<Autor>(httpRequestData);
+				autor.Id = _autores.Max(a => a.Id) + 1;
+				_autores.Add(autor);
+				return autor;
 			}
 			catch (Exception exception)
 			{
@@ -97,9 +101,16 @@ namespace ClubeDoLivro.Function.Controllers
 		{
 			try
 			{
-				var autor = _autores.FirstOrDefault(x => x.Id == id);
-				// change...
-				return new OkObjectResult(autor);
+				var autor = await GetFromBody<Autor>(httpRequestData);
+				if (autor.Id != id)
+					throw new Exception("Id informado no path é diferente do id do objeto enviado no Body");
+
+				var autorExistente = _autores.FirstOrDefault(x => x.Id == id);
+
+				autorExistente.Nome = autor.Nome;
+				autorExistente.Sobrenome = autor.Sobrenome;
+				
+				return autorExistente;
 			}
 			catch (Exception exception)
 			{
@@ -118,7 +129,9 @@ namespace ClubeDoLivro.Function.Controllers
 		{
 			try
 			{
-				return new OkResult();
+				var autor = _autores.FirstOrDefault(x => x.Id == id);
+				_autores.Remove(autor);
+				return autor;
 			}
 			catch (Exception exception)
 			{
