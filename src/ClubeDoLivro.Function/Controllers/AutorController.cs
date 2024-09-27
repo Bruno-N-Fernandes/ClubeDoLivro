@@ -1,13 +1,12 @@
 using ClubeDoLivro.Domains;
 using ClubeDoLivro.Function.Abstractions;
+using ClubeDoLivro.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -16,17 +15,11 @@ namespace ClubeDoLivro.Function.Controllers
 	public class AutorController : AbstractController
 	{
 		private const string ModelName = "Autor";
-
-		private readonly static List<Autor> _autores = [
-			new Autor { Id = 1, Nome = "Bruno", Sobrenome = "Fernandes" },
-			new Autor { Id = 2, Nome = "Walmir", Sobrenome = "Oliveira" },
-			new Autor { Id = 3, Nome = "Ricardo", Sobrenome = "Castello"},
-			new Autor { Id = 4, Nome = "Glauber", Sobrenome = "Lucas"   },
-		];
+		public AutorService AutorService { get; }
 
 		public AutorController(IServiceProvider serviceProvider) : base(serviceProvider)
 		{
-
+			AutorService = GetService<AutorService>();
 		}
 
 		[Function(ModelName + "GetAll")]
@@ -39,7 +32,7 @@ namespace ClubeDoLivro.Function.Controllers
 		{
 			try
 			{
-				return _autores;
+				return await AutorService.ObterTodos();
 			}
 			catch (Exception exception)
 			{
@@ -58,8 +51,7 @@ namespace ClubeDoLivro.Function.Controllers
 		{
 			try
 			{
-				var autor = _autores.FirstOrDefault(x => x.Id == id);
-				return autor;
+				return await AutorService.ObterPor(id);
 			}
 			catch (Exception exception)
 			{
@@ -80,9 +72,7 @@ namespace ClubeDoLivro.Function.Controllers
 			try
 			{
 				var autor = await GetFromBody<Autor>(httpRequestData);
-				autor.Id = _autores.Max(a => a.Id) + 1;
-				_autores.Add(autor);
-				return autor;
+				return await AutorService.Incluir(autor);
 			}
 			catch (Exception exception)
 			{
@@ -105,12 +95,7 @@ namespace ClubeDoLivro.Function.Controllers
 				if (autor.Id != id)
 					throw new Exception("Id informado no path é diferente do id do objeto enviado no Body");
 
-				var autorExistente = _autores.FirstOrDefault(x => x.Id == id);
-
-				autorExistente.Nome = autor.Nome;
-				autorExistente.Sobrenome = autor.Sobrenome;
-				
-				return autorExistente;
+				return await AutorService.Alterar(autor);
 			}
 			catch (Exception exception)
 			{
@@ -129,9 +114,7 @@ namespace ClubeDoLivro.Function.Controllers
 		{
 			try
 			{
-				var autor = _autores.FirstOrDefault(x => x.Id == id);
-				_autores.Remove(autor);
-				return autor;
+				return await AutorService.Excluir(id);
 			}
 			catch (Exception exception)
 			{

@@ -1,4 +1,5 @@
 ﻿using ClubeDoLivro.Function.Application;
+using ClubeDoLivro.Services;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Abstractions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -72,9 +73,9 @@ namespace ClubeDoLivro.Function.Application
 			//services.AddSingleton<FormatProviders>();
 			//services.AddSingleton(new SecurityInfo { ApplicationName = "Pleno Investidor" });
 
+			services.AddTransient<AutorService>();
 			//services.AddSingleton<UsuarioQuery>();
 			//services.AddTransient<UsuarioRepository>();
-			//services.AddTransient<UsuarioService>();
 
 			//services.AddTransient<JwtService>();
 
