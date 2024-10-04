@@ -1,4 +1,6 @@
-﻿using ClubeDoLivro.Function.Application;
+﻿using ClubeDoLivro.Abstractions;
+using ClubeDoLivro.Domains;
+using ClubeDoLivro.Function.Application;
 using ClubeDoLivro.Repositories;
 using ClubeDoLivro.Services;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Abstractions;
@@ -72,10 +74,12 @@ namespace ClubeDoLivro.Function.Application
 			//services.AddSingleton<FormatProviders>();
 			//services.AddSingleton(new SecurityInfo { ApplicationName = "Clube do Livro" });
 
-			services.AddTransient<AutorService>();
-			services.AddTransient<AutorRepository>();
+			services.AddTransient<IService<Autor>, AutorService>();
+			services.AddTransient<IRepository<Autor>, AutorRepository>();
 
-			//services.AddTransient<IRepository<Autor>, AutorRepository>();
+			services.AddTransient<IService<Livro>, LivroService>();
+			services.AddTransient<IRepository<Livro>, LivroRepository>();
+
 			//services.AddSingleton<UsuarioQuery>();
 
 			//services.AddTransient<JwtService>();

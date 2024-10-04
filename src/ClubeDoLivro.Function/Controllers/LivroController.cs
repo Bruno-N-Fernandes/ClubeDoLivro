@@ -8,16 +8,16 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using Entity = ClubeDoLivro.Domains.Autor;
+using Entity = ClubeDoLivro.Domains.Livro;
 
 namespace ClubeDoLivro.Function.Controllers
 {
-	public class AutorController : AbstractController
+	public class LivroController : AbstractController
 	{
-		private const string ModelName = "Autor";
+		private const string ModelName = "Livro";
 		public IService<Entity> Service { get; }
 
-		public AutorController(IServiceProvider serviceProvider) : base(serviceProvider)
+		public LivroController(IServiceProvider serviceProvider) : base(serviceProvider)
 		{
 			Service = GetService<IService<Entity>>();
 		}

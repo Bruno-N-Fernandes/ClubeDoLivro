@@ -1,5 +1,6 @@
 ﻿using ClubeDoLivro.Abstractions;
 using ClubeDoLivro.Domains;
+using Dapper;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ClubeDoLivro.Repositories
 {
-    public class AutorRepository : IRepository<Autor>
+	public class AutorRepository : IRepository<Autor>
 	{
 		private readonly IDbConnection _connection;
 
@@ -30,14 +31,15 @@ namespace ClubeDoLivro.Repositories
 
 		public async Task<IEnumerable<Autor>> ObterTodos()
 		{
-			return await Task.FromResult(_autores);
+			var query = "Select * From Autor";
+			return await _connection.QueryAsync<Autor>(query);
 		}
 
 		public async Task<Autor> Incluir(Autor autor)
 		{
-			autor.Id = _autores.Max(a => a.Id) + 1;
-			_autores.Add(autor);
-			return await Task.FromResult(autor);
+			var query = "Insert Into Autor (Nome, Sobrenome) Values (@nome, @sobrenome)";
+			var result = await _connection.ExecuteAsync(query, new { @nome = autor.Nome, @sobrenome = autor.Sobrenome });
+			return autor;
 		}
 
 		public async Task<Autor> Alterar(Autor autor)
