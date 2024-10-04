@@ -1,4 +1,6 @@
-﻿namespace ClubeDoLivro.Domains
+﻿using System;
+
+namespace ClubeDoLivro.Domains
 {
     public class Emprestimo
     {

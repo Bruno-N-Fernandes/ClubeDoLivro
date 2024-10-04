@@ -82,6 +82,7 @@ namespace ClubeDoLivro.Function.Controllers
 
 		[Function(ModelName + "Update")]
 		[OpenApiOperation(ModelName + "Update", ModelName, Summary = "Atualiza o autor", Description = "Use para atualiza o Autor")]
+		[OpenApiParameter("id", In = ParameterLocation.Path)]
 		[OpenApiRequestBody("application/json", typeof(Autor), Description = "Json contendo os dados do Autor", Required = true)]
 		[OpenApiResponseWithBody(HttpStatusCode.Unauthorized, "application/json", typeof(Message), Description = "Unauthorized response")]
 		[OpenApiResponseWithBody(HttpStatusCode.BadRequest, "application/json", typeof(Message), Description = "BadRequest response")]
@@ -105,6 +106,7 @@ namespace ClubeDoLivro.Function.Controllers
 
 		[Function(ModelName + "Delete")]
 		[OpenApiOperation(ModelName + "Delete", ModelName, Summary = "Apaga um autor", Description = "Use para apagar o Autor")]
+		[OpenApiParameter("id", In = ParameterLocation.Path)]
 		[OpenApiRequestBody("application/json", typeof(Autor), Description = "Json contendo os dados do Autor", Required = true)]
 		[OpenApiResponseWithBody(HttpStatusCode.Unauthorized, "application/json", typeof(Message), Description = "Unauthorized response")]
 		[OpenApiResponseWithBody(HttpStatusCode.BadRequest, "application/json", typeof(Message), Description = "BadRequest response")]
@@ -114,7 +116,8 @@ namespace ClubeDoLivro.Function.Controllers
 		{
 			try
 			{
-				return await AutorService.Excluir(id);
+				var autor = new Autor { Id = id };
+				return await AutorService.Excluir(autor);
 			}
 			catch (Exception exception)
 			{

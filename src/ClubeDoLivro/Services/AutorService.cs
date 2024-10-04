@@ -1,49 +1,90 @@
-﻿using ClubeDoLivro.Domains;
+﻿using ClubeDoLivro.Abstractions;
+using ClubeDoLivro.Domains;
+using ClubeDoLivro.Repositories;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ClubeDoLivro.Services
 {
 	public class AutorService
 	{
-		private readonly static List<Autor> _autores = [
-			new Autor { Id = 1, Nome = "Bruno", Sobrenome = "Fernandes" },
-			new Autor { Id = 2, Nome = "Walmir", Sobrenome = "Oliveira" },
-			new Autor { Id = 3, Nome = "Ricardo", Sobrenome = "Castello"},
-			new Autor { Id = 4, Nome = "Glauber", Sobrenome = "Lucas"   },
-		];
+		public readonly AutorRepository _autorRepository;
 
-		public async Task<Autor> Alterar(Autor autor)
+		public AutorService(IServiceProvider serviceProvider)
 		{
-			var autorExistente = _autores.FirstOrDefault(x => x.Id == autor.Id);
-
-			autorExistente.Nome = autor.Nome;
-			autorExistente.Sobrenome = autor.Sobrenome;
-
-			return await Task.FromResult(autorExistente);
-		}
-
-		public async Task<Autor> Excluir(int id)
-		{
-			var autor = _autores.FirstOrDefault(x => x.Id == id);
-			_autores.Remove(autor);
-			return await Task.FromResult(autor);
-		}
-
-		public async Task<Autor> Incluir(Autor autor)
-		{
-			autor.Id = _autores.Max(a => a.Id) + 1;
-			_autores.Add(autor);
-			return await Task.FromResult(autor);
+			_autorRepository = serviceProvider.GetService<AutorRepository>();
 		}
 
 		public async Task<Autor> ObterPor(int id)
 		{
-			var autor = _autores.FirstOrDefault(x => x.Id == id);
-			return await Task.FromResult(autor);
+			return await _autorRepository.ObterPor(id);
 		}
 
 		public async Task<IEnumerable<Autor>> ObterTodos()
 		{
-			return await Task.FromResult(_autores);
+			return await _autorRepository.ObterTodos();
+		}
+
+		public async Task<Autor> Incluir(Autor autor)
+		{
+			return await _autorRepository.Incluir(autor);
+		}
+
+		public async Task<Autor> Alterar(Autor autor)
+		{
+			return await _autorRepository.Alterar(autor);
+		}
+
+		public async Task<Autor> Excluir(Autor autor)
+		{
+			return await _autorRepository.Excluir(autor);
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+	public abstract class AbstractService<TEntity> : IService<TEntity>
+	{
+		public readonly IRepository<TEntity> _autorRepository;
+
+		public AbstractService(IServiceProvider serviceProvider)
+		{
+			_autorRepository = serviceProvider.GetService<IRepository<TEntity>>();
+		}
+
+		public async Task<TEntity> ObterPor(int id)
+		{
+			return await _autorRepository.ObterPor(id);
+		}
+
+		public async Task<IEnumerable<TEntity>> ObterTodos()
+		{
+			return await _autorRepository.ObterTodos();
+		}
+
+		public async Task<TEntity> Incluir(TEntity autor)
+		{
+			return await _autorRepository.Incluir(autor);
+		}
+
+		public async Task<TEntity> Alterar(TEntity autor)
+		{
+			return await _autorRepository.Alterar(autor);
+		}
+
+		public async Task<TEntity> Excluir(TEntity autor)
+		{
+			return await _autorRepository.Excluir(autor);
 		}
 	}
 }

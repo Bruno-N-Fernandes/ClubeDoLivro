@@ -1,15 +1,14 @@
 ﻿using ClubeDoLivro.Function.Application;
+using ClubeDoLivro.Repositories;
 using ClubeDoLivro.Services;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Abstractions;
+using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.IO;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -56,7 +55,7 @@ namespace ClubeDoLivro.Function.Application
 
 		public static void ConfigureDbConnection(this IServiceCollection services)
 		{
-			services.AddTransient<IDbConnection>(sp => new SqlConnection(sp.GetService<IConfiguration>().GetConnectionString("")));
+			services.AddTransient<IDbConnection>(sp => new SqliteConnection(sp.GetService<IConfiguration>().GetConnectionString("ClubeDoLivro")));
 		}
 
 		public static IServiceCollection ConfigureServices(this IServiceCollection services)
@@ -71,11 +70,13 @@ namespace ClubeDoLivro.Function.Application
 			//services.AddSingleton<IJwtService, JwtService>();
 			//services.AddSingleton<IFormatProviders, FormatProviders>();
 			//services.AddSingleton<FormatProviders>();
-			//services.AddSingleton(new SecurityInfo { ApplicationName = "Pleno Investidor" });
+			//services.AddSingleton(new SecurityInfo { ApplicationName = "Clube do Livro" });
 
 			services.AddTransient<AutorService>();
+			services.AddTransient<AutorRepository>();
+
+			//services.AddTransient<IRepository<Autor>, AutorRepository>();
 			//services.AddSingleton<UsuarioQuery>();
-			//services.AddTransient<UsuarioRepository>();
 
 			//services.AddTransient<JwtService>();
 

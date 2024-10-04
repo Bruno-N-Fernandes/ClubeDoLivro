@@ -1,4 +1,7 @@
-﻿namespace ClubeDoLivro.Domains
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace ClubeDoLivro.Domains
 {
 	public class Livro
 	{

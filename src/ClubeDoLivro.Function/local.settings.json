@@ -6,5 +6,8 @@
     },
     "Host": {
         "CORS": "*"
+    },
+    "ConnectionStrings": {
+        "ClubeDoLivro": "Data Source=./db/ClubeDoLivro.sqlite;"
     }
 }

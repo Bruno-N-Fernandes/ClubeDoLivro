@@ -24,11 +24,12 @@
 		<PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.17.4" />
 		<PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.2.0" />
 
+		<PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.8" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
 		<PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.34.0" />
-
+		
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 
 		<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
@@ -39,6 +40,9 @@
 	  <ProjectReference Include="..\ClubeDoLivro\ClubeDoLivro.csproj" />
 	</ItemGroup>
 	<ItemGroup>
+		<None Update="db\ClubeDoLivro.sqlite">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="host.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>

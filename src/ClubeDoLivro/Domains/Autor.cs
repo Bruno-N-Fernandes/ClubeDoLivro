@@ -1,4 +1,7 @@
 ﻿
+using System.Collections.Generic;
+using System.Linq;
+
 namespace ClubeDoLivro.Domains
 {
 	public class Autor
