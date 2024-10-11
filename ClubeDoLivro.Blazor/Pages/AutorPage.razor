@@ -19,8 +19,8 @@ else
             <TemplateColumn CellClass="d-flex justify-end">
                 <CellTemplate>
                     <MudStack Row>
-                        <MudButton Size="@Size.Small" Variant="Variant.Filled" Color="Color.Primary" OnClick="e=>OpenPopup(context.Item, true)">Remover</MudButton>
                         <MudButton Size="@Size.Small" Variant="Variant.Filled" Color="Color.Primary" OnClick="e=>OpenPopup(context.Item)">Editar</MudButton>
+                        <MudButton Size="@Size.Small" Variant="Variant.Filled" Color="Color.Primary" OnClick="e=>OpenPopup(context.Item, true)">Remover</MudButton>
                     </MudStack>
                 </CellTemplate>
             </TemplateColumn>

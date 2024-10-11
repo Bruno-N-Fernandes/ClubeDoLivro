@@ -80,7 +80,7 @@ namespace ClubeDoLivro.Function.Application
 			services.AddTransient<IService<Livro>, LivroService>();
 			services.AddTransient<IRepository<Livro>, LivroRepository>();
 
-			//services.AddSingleton<UsuarioQuery>();
+			services.AddSingleton<IQueryBuilder, QueryBuilder>();
 
 			//services.AddTransient<JwtService>();
 

@@ -8,6 +8,6 @@
         "CORS": "*"
     },
     "ConnectionStrings": {
-        "ClubeDoLivro": "Data Source=./db/ClubeDoLivro.sqlite;"
+        "ClubeDoLivro": "Data Source=./db/ClubeDoLivro.sqlite;Pooling=True;"
     }
 }

@@ -1,10 +1,11 @@
 ﻿
 using System.Collections.Generic;
 using System.Linq;
+using ClubeDoLivro.Abstractions;
 
 namespace ClubeDoLivro.Domains
 {
-	public class Autor
+    public class Autor : IEntity
 	{
 		public int Id { get; set; }
 		public string Nome { get; set; }

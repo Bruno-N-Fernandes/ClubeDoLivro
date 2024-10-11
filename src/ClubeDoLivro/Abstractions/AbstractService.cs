@@ -25,19 +25,19 @@ namespace ClubeDoLivro.Services
 			return await _repository.ObterTodos();
 		}
 
-		public async Task<TEntity> Incluir(TEntity autor)
+		public async Task<TEntity> Incluir(TEntity entity)
 		{
-			return await _repository.Incluir(autor);
+			return await _repository.Incluir(entity);
 		}
 
-		public async Task<TEntity> Alterar(TEntity autor)
+		public async Task<TEntity> Alterar(TEntity entity)
 		{
-			return await _repository.Alterar(autor);
+			return await _repository.Alterar(entity);
 		}
 
-		public async Task<TEntity> Excluir(TEntity autor)
+		public async Task<TEntity> Excluir(TEntity entity)
 		{
-			return await _repository.Excluir(autor);
+			return await _repository.Excluir(entity);
 		}
 	}
 }

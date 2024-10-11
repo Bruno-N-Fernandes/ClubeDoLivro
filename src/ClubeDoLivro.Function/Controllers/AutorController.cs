@@ -14,7 +14,7 @@ namespace ClubeDoLivro.Function.Controllers
 {
 	public class AutorController : AbstractController
 	{
-		private const string ModelName = "Autor";
+		private const string EntityName = "Autor";
 		public IService<Entity> Service { get; }
 
 		public AutorController(IServiceProvider serviceProvider) : base(serviceProvider)
@@ -22,13 +22,13 @@ namespace ClubeDoLivro.Function.Controllers
 			Service = GetService<IService<Entity>>();
 		}
 
-		[Function(ModelName + "GetAll")]
-		[OpenApiOperation(ModelName + "GetAll", ModelName, Summary = "Listar todos os " + ModelName + "(s)", Description = "Use para Listar todos os " + ModelName + "(s)")]
+		[Function(EntityName + "GetAll")]
+		[OpenApiOperation(EntityName + "GetAll", EntityName, Summary = "Lista todos os " + EntityName, Description = "Use para Listar todos os " + EntityName)]
 		[OpenApiResponseWithBody(HttpStatusCode.Unauthorized, "application/json", typeof(Message), Description = "Unauthorized response")]
 		[OpenApiResponseWithBody(HttpStatusCode.BadRequest, "application/json", typeof(Message), Description = "BadRequest response")]
 		[OpenApiResponseWithBody(HttpStatusCode.NotFound, "application/json", typeof(Message), Description = "NotFound response")]
 		[OpenApiResponseWithBody(HttpStatusCode.OK, "application/json", typeof(Entity), Description = "OK response")]
-		public async Task<dynamic> GetAll([HttpTrigger(AuthorizationLevel.Anonymous, "Get", Route = ModelName)] HttpRequestData httpRequestData)
+		public async Task<dynamic> GetAll([HttpTrigger(AuthorizationLevel.Anonymous, "Get", Route = EntityName)] HttpRequestData httpRequestData)
 		{
 			try
 			{
@@ -40,14 +40,14 @@ namespace ClubeDoLivro.Function.Controllers
 			}
 		}
 
-		[Function(ModelName + "GetOne")]
-		[OpenApiOperation(ModelName + "GetOne", ModelName, Summary = "Busca o " + ModelName, Description = "Use para Buscar o " + ModelName)]
+		[Function(EntityName + "GetOne")]
+		[OpenApiOperation(EntityName + "GetOne", EntityName, Summary = "Obtém um " + EntityName, Description = "Use para Obter um " + EntityName)]
 		[OpenApiParameter("id", In = ParameterLocation.Path)]
 		[OpenApiResponseWithBody(HttpStatusCode.Unauthorized, "application/json", typeof(Message), Description = "Unauthorized response")]
 		[OpenApiResponseWithBody(HttpStatusCode.BadRequest, "application/json", typeof(Message), Description = "BadRequest response")]
 		[OpenApiResponseWithBody(HttpStatusCode.NotFound, "application/json", typeof(Message), Description = "NotFound response")]
 		[OpenApiResponseWithBody(HttpStatusCode.OK, "application/json", typeof(Entity), Description = "OK response")]
-		public async Task<dynamic> GetOne([HttpTrigger(AuthorizationLevel.Anonymous, "Get", Route = ModelName + "/{id}")] HttpRequestData httpRequestData, int id)
+		public async Task<dynamic> GetOne([HttpTrigger(AuthorizationLevel.Anonymous, "Get", Route = EntityName + "/{id}")] HttpRequestData httpRequestData, int id)
 		{
 			try
 			{
@@ -60,14 +60,14 @@ namespace ClubeDoLivro.Function.Controllers
 		}
 
 
-		[Function(ModelName + "Create")]
-		[OpenApiOperation(ModelName + "Create", ModelName, Summary = "Cria um novo " + ModelName, Description = "Use para criar um novo " + ModelName)]
-		[OpenApiRequestBody("application/json", typeof(Entity), Description = "Json contendo os dados do " + ModelName, Required = true)]
+		[Function(EntityName + "Create")]
+		[OpenApiOperation(EntityName + "Create", EntityName, Summary = "Cria um novo " + EntityName, Description = "Use para Criar um novo " + EntityName)]
+		[OpenApiRequestBody("application/json", typeof(Entity), Description = "Json contendo os dados do " + EntityName, Required = true)]
 		[OpenApiResponseWithBody(HttpStatusCode.Unauthorized, "application/json", typeof(Message), Description = "Unauthorized response")]
 		[OpenApiResponseWithBody(HttpStatusCode.BadRequest, "application/json", typeof(Message), Description = "BadRequest response")]
 		[OpenApiResponseWithBody(HttpStatusCode.NotFound, "application/json", typeof(Message), Description = "NotFound response")]
 		[OpenApiResponseWithBody(HttpStatusCode.OK, "application/json", typeof(Entity), Description = "OK response")]
-		public async Task<dynamic> Create([HttpTrigger(AuthorizationLevel.Anonymous, "Post", Route = ModelName)] HttpRequestData httpRequestData)
+		public async Task<dynamic> Create([HttpTrigger(AuthorizationLevel.Anonymous, "Post", Route = EntityName)] HttpRequestData httpRequestData)
 		{
 			try
 			{
@@ -80,15 +80,15 @@ namespace ClubeDoLivro.Function.Controllers
 			}
 		}
 
-		[Function(ModelName + "Update")]
-		[OpenApiOperation(ModelName + "Update", ModelName, Summary = "Atualiza o " + ModelName, Description = "Use para atualiza o " + ModelName)]
+		[Function(EntityName + "Update")]
+		[OpenApiOperation(EntityName + "Update", EntityName, Summary = "Atualiza um " + EntityName, Description = "Use para Atualizar um " + EntityName)]
 		[OpenApiParameter("id", In = ParameterLocation.Path)]
-		[OpenApiRequestBody("application/json", typeof(Entity), Description = "Json contendo os dados do " + ModelName, Required = true)]
+		[OpenApiRequestBody("application/json", typeof(Entity), Description = "Json contendo os dados do " + EntityName, Required = true)]
 		[OpenApiResponseWithBody(HttpStatusCode.Unauthorized, "application/json", typeof(Message), Description = "Unauthorized response")]
 		[OpenApiResponseWithBody(HttpStatusCode.BadRequest, "application/json", typeof(Message), Description = "BadRequest response")]
 		[OpenApiResponseWithBody(HttpStatusCode.NotFound, "application/json", typeof(Message), Description = "NotFound response")]
 		[OpenApiResponseWithBody(HttpStatusCode.OK, "application/json", typeof(Entity), Description = "OK response")]
-		public async Task<dynamic> Update([HttpTrigger(AuthorizationLevel.Anonymous, "Put", Route = ModelName + "/{id}")] HttpRequestData httpRequestData, int id)
+		public async Task<dynamic> Update([HttpTrigger(AuthorizationLevel.Anonymous, "Put", Route = EntityName + "/{id}")] HttpRequestData httpRequestData, int id)
 		{
 			try
 			{
@@ -104,15 +104,15 @@ namespace ClubeDoLivro.Function.Controllers
 			}
 		}
 
-		[Function(ModelName + "Delete")]
-		[OpenApiOperation(ModelName + "Delete", ModelName, Summary = "Apaga um " + ModelName, Description = "Use para apagar o " + ModelName)]
+		[Function(EntityName + "Delete")]
+		[OpenApiOperation(EntityName + "Delete", EntityName, Summary = "Apaga um " + EntityName, Description = "Use para Apagar um " + EntityName)]
 		[OpenApiParameter("id", In = ParameterLocation.Path)]
-		[OpenApiRequestBody("application/json", typeof(Entity), Description = "Json contendo os dados do " + ModelName, Required = true)]
+		[OpenApiRequestBody("application/json", typeof(Entity), Description = "Json contendo os dados do " + EntityName, Required = true)]
 		[OpenApiResponseWithBody(HttpStatusCode.Unauthorized, "application/json", typeof(Message), Description = "Unauthorized response")]
 		[OpenApiResponseWithBody(HttpStatusCode.BadRequest, "application/json", typeof(Message), Description = "BadRequest response")]
 		[OpenApiResponseWithBody(HttpStatusCode.NotFound, "application/json", typeof(Message), Description = "NotFound response")]
 		[OpenApiResponseWithBody(HttpStatusCode.OK, "application/json", typeof(Entity), Description = "OK response")]
-		public async Task<dynamic> Delete([HttpTrigger(AuthorizationLevel.Anonymous, "Delete", Route = ModelName + "/{id}")] HttpRequestData httpRequestData, int id)
+		public async Task<dynamic> Delete([HttpTrigger(AuthorizationLevel.Anonymous, "Delete", Route = EntityName + "/{id}")] HttpRequestData httpRequestData, int id)
 		{
 			try
 			{
