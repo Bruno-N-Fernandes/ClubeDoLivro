@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using ClubeDoLivro.Abstractions;
+using System.Collections.Generic;
 using System.Linq;
-using ClubeDoLivro.Abstractions;
 
 namespace ClubeDoLivro.Domains
 {
     public class Livro : IEntity
 	{
 		public int Id { get; set; }
-		public string NomeDoLivro { get; set; }
+		public string Nome { get; set; }
 		public string Volume { get; set; }
 		public string Edicao { get; set; }
-		public string CodigoISBN { get; set; }
+		public string ISBN { get; set; }
 		public int Paginas { get; set; }
 		private List<Autor> Autores { get; set; }
 		public int QuantidadeAutores => Autores.Count;
@@ -36,11 +36,13 @@ namespace ClubeDoLivro.Domains
 
 		public bool EhValido()
 		{
-			return !string.IsNullOrWhiteSpace(NomeDoLivro)
+			return !string.IsNullOrWhiteSpace(Nome)
 				&& !string.IsNullOrWhiteSpace(Volume)
 				&& !string.IsNullOrWhiteSpace(Edicao)
-				&& !string.IsNullOrWhiteSpace(CodigoISBN)
+				&& !string.IsNullOrWhiteSpace(ISBN)
 				&& Paginas > 0;
 		}
-	}
+
+        public Livro Clone() => MemberwiseClone() as Livro;
+    }
 }

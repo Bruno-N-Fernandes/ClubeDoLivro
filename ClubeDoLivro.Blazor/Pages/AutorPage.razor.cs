@@ -5,7 +5,7 @@ using MudBlazor;
 
 namespace ClubeDoLivro.Blazor.Pages
 {
-	[Route("/Autor"), Route("/Autor/{id}")]
+	[Route("/Autor")]
 	public partial class AutorPage
 	{
 		[Inject]
@@ -16,9 +16,6 @@ namespace ClubeDoLivro.Blazor.Pages
 
 		[Inject]
 		private NavigationManager Navigation { get; set; }
-
-		[Parameter]
-		public string id { get; set; }
 
 		public List<Autor> Autores { get; set; }
 

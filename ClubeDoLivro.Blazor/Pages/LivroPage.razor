@@ -1,0 +1,32 @@
+﻿<PageTitle>Clube Do Livro :: Livros</PageTitle>
+
+<h1>Livros</h1>
+
+@if (Livros == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="e=>OpenPopup()">Adicionar</MudButton>
+
+    <MudDataGrid Items="@Livros">
+        <Columns>
+            <PropertyColumn Property="x => x.Id" Title="Identificador" />
+            <PropertyColumn Property="x => x.Nome" Title="Nome do Livro" />
+            <PropertyColumn Property="x => x.Volume" Title="Volume" />
+            <PropertyColumn Property="x => x.Edicao" Title="Ecição" />
+            <PropertyColumn Property="x => x.ISBN" Title="Código ISBN" />
+            <PropertyColumn Property="x => x.Paginas" Title="Qtd. Páginas" />
+            <TemplateColumn CellClass="d-flex justify-end">
+                <CellTemplate>
+                    <MudStack Row>
+                        <MudButton Size="@Size.Small" Variant="Variant.Filled" Color="Color.Primary" OnClick="e=>OpenPopup(context.Item)">Editar</MudButton>
+                        <MudButton Size="@Size.Small" Variant="Variant.Filled" Color="Color.Primary" OnClick="e=>OpenPopup(context.Item, true)">Remover</MudButton>
+                    </MudStack>
+                </CellTemplate>
+            </TemplateColumn>
+        </Columns>
+    </MudDataGrid>
+}
+

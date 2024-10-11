@@ -65,7 +65,7 @@ namespace ClubeDoLivro.Testes
 			//Act
 
 			//Assert
-			Assert.Null(_livro.NomeDoLivro);
+			Assert.Null(_livro.Nome);
 		}
 
 		[Fact]
@@ -76,7 +76,7 @@ namespace ClubeDoLivro.Testes
 			//Act
 
 			//Assert
-			Assert.Null(_livro.CodigoISBN);
+			Assert.Null(_livro.ISBN);
 		}
 
 		[Fact]

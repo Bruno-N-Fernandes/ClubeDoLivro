@@ -102,7 +102,7 @@ namespace ClubeDoLivro.Testes
 	{
 		public static Livro ObterLivro(int id = 0)
 		{
-			return new Livro { Id = id, CodigoISBN = "113121", Edicao = "1", NomeDoLivro = "C#", Paginas = 1, Volume = "1" };
+			return new Livro { Id = id, ISBN = "113121", Edicao = "1", Nome = "C#", Paginas = 1, Volume = "1" };
 		}
 	}
 }
