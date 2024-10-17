@@ -15,7 +15,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\src\ClubeDoLivro\ClubeDoLivro.csproj" />
+		<ProjectReference Include="..\ClubeDoLivro\ClubeDoLivro.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
