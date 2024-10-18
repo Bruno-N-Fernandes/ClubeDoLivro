@@ -1,10 +1,10 @@
-﻿using ClubeDoLivro.Abstractions;
+﻿using ClubeDoLivro.Abstractions.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ClubeDoLivro.Services
+namespace ClubeDoLivro.Abstractions
 {
 	public abstract class AbstractService<TEntity> : IService<TEntity>
 	{

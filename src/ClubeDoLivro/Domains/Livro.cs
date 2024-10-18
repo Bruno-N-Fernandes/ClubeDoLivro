@@ -1,4 +1,4 @@
-﻿using ClubeDoLivro.Abstractions;
+﻿using ClubeDoLivro.Abstractions.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -44,5 +44,14 @@ namespace ClubeDoLivro.Domains
 		}
 
         public Livro Clone() => MemberwiseClone() as Livro;
+
+        public void Alterar(Livro livroAlterado)
+        {
+            Nome = livroAlterado.Nome;
+            Volume = livroAlterado.Volume;
+            Edicao = livroAlterado.Edicao;
+            ISBN = livroAlterado.ISBN;
+            Paginas = livroAlterado.Paginas;
+        }
     }
 }

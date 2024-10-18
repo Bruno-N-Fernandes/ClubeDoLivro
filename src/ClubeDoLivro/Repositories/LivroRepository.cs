@@ -1,4 +1,5 @@
-﻿using ClubeDoLivro.Domains;
+﻿using ClubeDoLivro.Abstractions;
+using ClubeDoLivro.Domains;
 using System;
 
 namespace ClubeDoLivro.Repositories

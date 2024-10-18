@@ -1,7 +1,9 @@
-﻿using ClubeDoLivro.Abstractions;
+﻿using ClubeDoLivro.Abstractions.Interfaces;
+using ClubeDoLivro.Abstractions.Queries.Dialects;
 using ClubeDoLivro.Domains;
 using ClubeDoLivro.Function.Application;
 using ClubeDoLivro.Repositories;
+using ClubeDoLivro.Repositories.Queries;
 using ClubeDoLivro.Services;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Abstractions;
 using Microsoft.Data.Sqlite;
@@ -16,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace ClubeDoLivro.Function.Application
 {
-	public static class Startup
+    public static class Startup
 	{
 		public static async Task Main(string[] args)
 		{
@@ -64,8 +66,9 @@ namespace ClubeDoLivro.Function.Application
 		{
 			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-			//services.ConfigureJson();
+			services.AddSingleton<IDialect, SqLiteDialect>();
 			services.AddSingleton<IOpenApiConfigurationOptions, ApiOptions>();
+			//services.ConfigureJson();
 
 			services.AddHttpClient();
 
@@ -80,7 +83,8 @@ namespace ClubeDoLivro.Function.Application
 			services.AddTransient<IService<Livro>, LivroService>();
 			services.AddTransient<IRepository<Livro>, LivroRepository>();
 
-			services.AddSingleton<IQueryBuilder, QueryBuilder>();
+			services.AddSingleton<IQueryBuilder<Autor>, AutorQueryBuilder>();
+			services.AddSingleton<IQueryBuilder<Livro>, LivroQueryBuilder>();
 
 			//services.AddTransient<JwtService>();
 

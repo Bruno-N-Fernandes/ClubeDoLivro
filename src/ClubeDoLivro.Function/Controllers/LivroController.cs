@@ -1,4 +1,4 @@
-using ClubeDoLivro.Abstractions;
+using ClubeDoLivro.Abstractions.Interfaces;
 using ClubeDoLivro.Function.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;

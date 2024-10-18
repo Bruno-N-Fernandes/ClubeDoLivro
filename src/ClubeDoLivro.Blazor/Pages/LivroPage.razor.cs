@@ -1,64 +1,61 @@
-﻿using ClubeDoLivro.Domains;
+﻿using ClubeDoLivro.Blazor.Code;
+using ClubeDoLivro.Blazor.Popups;
+using ClubeDoLivro.Domains;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace ClubeDoLivro.Blazor.Pages
 {
     [Route("/Livro")]
-	public partial class LivroPage
-	{
-		[Inject]
-		public HttpClient HttpClient { get; set; }
+    public partial class LivroPage
+    {
+        [Inject]
+        public HttpClient HttpClient { get; set; }
 
-		[Inject]
-		private IDialogService DialogService { get; set; }
+        [Inject]
+        private IDialogService DialogService { get; set; }
 
-		[Inject]
-		private NavigationManager Navigation { get; set; }
+        [Inject]
+        private NavigationManager Navigation { get; set; }
 
-		public List<Livro> Livros { get; set; }
+        public List<Livro> Livros { get; set; }
 
-		protected override async Task OnInitializedAsync()
-		{
-			Livros = await HttpClient.GetFromJsonAsync<List<Livro>>("Livro");
-			await base.OnInitializedAsync();
-		}
+        protected override async Task OnInitializedAsync()
+        {
+            Livros = await HttpClient.GetFromJsonAsync<List<Livro>>("Livro");
+            await base.OnInitializedAsync();
+        }
 
-		public async Task OpenPopup(Livro livro = null, bool podeRemover = false)
-		{
-			//var parameters = new DialogParameters
-			//{
-			//	{ "livro", livro?.Clone() ?? new Livro() },
-			//	{ "podeRemover", podeRemover }
-			//};
+        public async Task OpenPopup(Livro livro = null, Mode mode = Mode.Incluir)
+        {
+            var parameters = new DialogParameters
+            {
+                { "mode", mode },
+                { "livro", livro?.Clone() ?? new Livro() },
+            };
 
-			//var options = new DialogOptions { CloseOnEscapeKey = true, FullWidth = true };
-			//var dialog = DialogService.Show<LivroPopup>("Autor", parameters, options);
-			//var result = await dialog.Result;
+            var options = new DialogOptions { CloseOnEscapeKey = true, FullWidth = true };
+            var dialog = DialogService.Show<LivroPopup>("Livro", parameters, options);
+            var result = await dialog.Result;
 
-			//if (!result.Canceled)
-			//{
-			//	if (podeRemover)
-			//		Livros = Livros.Where(n => n.Id != livro.Id).ToList();
-			//	else
-			//	{
-			//		if (livro == null)
-			//		{
-			//			Livros.Add(result.Data as Livro);
-			//		}
-			//		else
-			//		{
-			//			var autorAlterado = result.Data as Livro;
-			//			livro.Nome = autorAlterado.Nome;
-			//			livro.Sobrenome = autorAlterado.Sobrenome;
-			//		}
+            if (!result.Canceled)
+            {
+                switch (mode)
+                {
+                    case Mode.Incluir:
+                        Livros.Add(result.Data as Livro);
+                        break;
+                    case Mode.Alterar:
+                        var livroAlterado = result.Data as Livro;
+                        livro.Alterar(livroAlterado);
+                        break;
+                    case Mode.Excluir:
+                        Livros = Livros.Where(n => n.Id != livro.Id).ToList();
+                        break;
+                }
 
-			//	}
-
-			//	StateHasChanged();
-			//}
-			await Task.CompletedTask;
-
-		}
-	}
+                StateHasChanged();
+            }
+        }
+    }
 }

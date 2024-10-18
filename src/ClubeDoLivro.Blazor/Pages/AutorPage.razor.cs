@@ -1,4 +1,5 @@
-﻿using ClubeDoLivro.Blazor.Components;
+﻿using ClubeDoLivro.Blazor.Code;
+using ClubeDoLivro.Blazor.Popups;
 using ClubeDoLivro.Domains;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
@@ -26,12 +27,12 @@ namespace ClubeDoLivro.Blazor.Pages
 			await base.OnInitializedAsync();
 		}
 
-		public async Task OpenPopup(Autor autor = null, bool podeRemover = false)
+		public async Task OpenPopup(Autor autor = null, Mode mode = Mode.Incluir)
 		{
 			var parameters = new DialogParameters
 			{
+				{ "mode", mode },
 				{ "autor", autor?.Clone() ?? new Autor() },
-				{ "podeRemover", podeRemover }
 			};
 
 			var options = new DialogOptions { CloseOnEscapeKey = true, FullWidth = true };
@@ -40,21 +41,18 @@ namespace ClubeDoLivro.Blazor.Pages
 
 			if (!result.Canceled)
 			{
-				if (podeRemover)
-					Autores = Autores.Where(n => n.Id != autor.Id).ToList();
-				else
+				switch (mode)
 				{
-					if (autor == null)
-					{
+					case Mode.Incluir:
 						Autores.Add(result.Data as Autor);
-					}
-					else
-					{
+						break;
+					case Mode.Alterar:
 						var autorAlterado = result.Data as Autor;
-						autor.Nome = autorAlterado.Nome;
-						autor.Sobrenome = autorAlterado.Sobrenome;
-					}
-
+						autor.Alterar(autorAlterado);
+						break;
+					case Mode.Excluir:
+						Autores = Autores.Where(n => n.Id != autor.Id).ToList();
+						break;
 				}
 
 				StateHasChanged();

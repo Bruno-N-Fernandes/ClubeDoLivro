@@ -1,0 +1,18 @@
+﻿<MudDialog>
+	<DialogContent>
+		<h1>Livro</h1>
+		<MudTextField Label="Id" Variant="Variant.Outlined" Margin="Margin.Dense" Value="Livro.Id" />
+		<MudTextField Label="Nome" Variant="Variant.Outlined" Margin="Margin.Dense" @bind-Value="Livro.Nome" />
+		<MudTextField Label="ISBN" Variant="Variant.Outlined" Margin="Margin.Dense" @bind-Value="Livro.ISBN" />
+		<MudTextField Label="Edicao" Variant="Variant.Outlined" Margin="Margin.Dense" @bind-Value="Livro.Edicao" />
+		<MudTextField Label="Volume" Variant="Variant.Outlined" Margin="Margin.Dense" @bind-Value="Livro.Volume" />
+		<MudTextField Label="Paginas" Variant="Variant.Outlined" Margin="Margin.Dense" @bind-Value="Livro.Paginas" />
+	</DialogContent>
+	<DialogActions>
+		<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Incluir" hidden=@(Mode != Mode.Incluir)>Incluir</MudButton>
+		<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Alterar" hidden=@(Mode != Mode.Alterar)>Alterar</MudButton>
+		<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Excluir" hidden=@(Mode != Mode.Excluir)>Excluir</MudButton>
+		<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Cancelar">Cancelar</MudButton>
+	</DialogActions>
+
+</MudDialog>

@@ -1,7 +1,6 @@
-﻿
+﻿using ClubeDoLivro.Abstractions.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using ClubeDoLivro.Abstractions;
 
 namespace ClubeDoLivro.Domains
 {
@@ -41,5 +40,10 @@ namespace ClubeDoLivro.Domains
 
 		public Autor Clone() => MemberwiseClone() as Autor;
 
-	}
+        public void Alterar(Autor autorAlterado)
+        {
+            Nome = autorAlterado.Nome;
+            Sobrenome = autorAlterado.Sobrenome;
+        }
+    }
 }
