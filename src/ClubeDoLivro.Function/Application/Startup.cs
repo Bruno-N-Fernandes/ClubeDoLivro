@@ -79,16 +79,19 @@ namespace ClubeDoLivro.Function.Application
 
 			services.AddTransient<IService<Autor>, AutorService>();
 			services.AddTransient<IRepository<Autor>, AutorRepository>();
+			services.AddSingleton<IQueryBuilder<Autor>, AutorQueryBuilder>();
 
 			services.AddTransient<IService<Livro>, LivroService>();
 			services.AddTransient<IRepository<Livro>, LivroRepository>();
-
-			services.AddSingleton<IQueryBuilder<Autor>, AutorQueryBuilder>();
 			services.AddSingleton<IQueryBuilder<Livro>, LivroQueryBuilder>();
 
-			//services.AddTransient<JwtService>();
+            services.AddTransient<IService<Usuario>, UsuarioService>();
+            services.AddTransient<IRepository<Usuario>, UsuarioRepository>();
+            services.AddSingleton<IQueryBuilder<Usuario>, UsuarioQueryBuilder>();
 
-			return services;
+            //services.AddTransient<JwtService>();
+
+            return services;
 		}
 	}
 }

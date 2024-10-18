@@ -1,6 +1,8 @@
-﻿namespace ClubeDoLivro.Domains
+﻿using ClubeDoLivro.Abstractions.Interfaces;
+
+namespace ClubeDoLivro.Domains
 {
-    public class Usuario
+    public class Usuario : IEntity
     {
         public int Id { get; set; }
         public string Nome { get; set; }
