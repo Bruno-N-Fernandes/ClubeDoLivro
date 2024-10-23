@@ -1,4 +1,3 @@
-using ClubeDoLivro.Abstractions.Interfaces;
 using ClubeDoLivro.Function.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
@@ -12,15 +11,10 @@ using Entity = ClubeDoLivro.Domains.Autor;
 
 namespace ClubeDoLivro.Function.Controllers
 {
-	public class AutorController : AbstractController
+	public class AutorController : AbstractController<Entity>
 	{
 		private const string EntityName = "Autor";
-		public IService<Entity> Service { get; }
-
-		public AutorController(IServiceProvider serviceProvider) : base(serviceProvider)
-		{
-			Service = GetService<IService<Entity>>();
-		}
+		public AutorController(IServiceProvider serviceProvider) : base(serviceProvider) { }
 
 		[Function(EntityName + "GetAll")]
 		[OpenApiOperation(EntityName + "GetAll", EntityName, Summary = "Lista todos os " + EntityName, Description = "Use para Listar todos os " + EntityName)]

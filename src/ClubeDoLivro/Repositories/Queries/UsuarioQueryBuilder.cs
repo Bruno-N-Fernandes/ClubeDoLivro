@@ -11,7 +11,7 @@ namespace ClubeDoLivro.Repositories.Queries
             For("Usuario", "Id")
                 .Add(c => c.Id)
                 .Add(c => c.Nome)
-                .Add(c => c.Email)
+                .Add(c => c.EMail)
                 .Add(c => c.Telefone)
                 .Add(c => c.Senha)
                 .Build(this);

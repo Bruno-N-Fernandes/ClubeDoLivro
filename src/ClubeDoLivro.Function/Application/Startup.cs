@@ -72,7 +72,7 @@ namespace ClubeDoLivro.Function.Application
 
 			services.AddHttpClient();
 
-			//services.AddSingleton<IJwtService, JwtService>();
+			services.AddSingleton<IJwtService, JwtService>();
 			//services.AddSingleton<IFormatProviders, FormatProviders>();
 			//services.AddSingleton<FormatProviders>();
 			//services.AddSingleton(new SecurityInfo { ApplicationName = "Clube do Livro" });
@@ -89,9 +89,7 @@ namespace ClubeDoLivro.Function.Application
             services.AddTransient<IRepository<Usuario>, UsuarioRepository>();
             services.AddSingleton<IQueryBuilder<Usuario>, UsuarioQueryBuilder>();
 
-            //services.AddTransient<JwtService>();
-
-            return services;
+			return services;
 		}
 	}
 }

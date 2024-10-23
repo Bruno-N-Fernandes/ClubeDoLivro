@@ -1,5 +1,6 @@
 using ClubeDoLivro.Domains;
 using FluentAssertions;
+using System.Security.Cryptography;
 
 namespace ClubeDoLivro.Testes
 {
@@ -12,6 +13,13 @@ namespace ClubeDoLivro.Testes
 			_livro = new Livro();
         }
 
+		[Fact]
+		public void GenerateSign()
+		{
+			var x = Convert.ToBase64String(new HMACSHA256().Key);
+
+			x.Should().NotBeNull();
+		}
 
 		[Fact]
 		public void QuandoEuCrioUmLivro_OLivroDeveSerCriadoCorretamente()

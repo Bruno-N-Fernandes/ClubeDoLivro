@@ -27,12 +27,11 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
-		<PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.34.0" />
 		
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 
 		<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.34.0" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.1.2" />
 	</ItemGroup>
 
 	<ItemGroup>
