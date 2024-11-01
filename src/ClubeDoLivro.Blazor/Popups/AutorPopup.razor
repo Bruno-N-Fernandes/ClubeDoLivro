@@ -1,16 +1,19 @@
-﻿<MudDialog>
+﻿<MudDialog Style="max-height: 500px">
+	<TitleContent>
+		<MudText Typo="Typo.h6">@MudDialog.Title</MudText>
+	</TitleContent>
+
 	<DialogContent>
-		<h1>Autor</h1>
-		<MudTextField Label="Id" Variant="Variant.Outlined" Margin="Margin.Dense" Value="Autor.Id"></MudTextField>
-		<MudTextField Label="Nome" Variant="Variant.Outlined" Margin="Margin.Dense" @bind-Value="Autor.Nome"></MudTextField>
-		<MudTextField Label="Sobrenome" Variant="Variant.Outlined" Margin="Margin.Dense" @bind-Value="Autor.Sobrenome"></MudTextField>
-		<MudTextField Label="LivrosEscritos" Variant="Variant.Outlined" Margin="Margin.Dense" ReadOnly Value="Autor.LivrosEscritos"></MudTextField>
+		<MudTextField ReadOnly Value="Autor.Id" Label="Id" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+		<MudTextField ReadOnly="@Mode.In(Mode.Mostrar, Mode.Excluir)" @bind-Value="Autor.Nome" Label="Nome" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+		<MudTextField ReadOnly="@Mode.In(Mode.Mostrar, Mode.Excluir)" @bind-Value="Autor.Sobrenome" Label="Sobrenome" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
+		<MudTextField ReadOnly Value="Autor.LivrosEscritos" Label="LivrosEscritos" Variant="Variant.Outlined" Margin="Margin.Dense"></MudTextField>
 	</DialogContent>
+
 	<DialogActions>
 		<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Incluir" hidden=@(Mode != Mode.Incluir)>Incluir</MudButton>
 		<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Alterar" hidden=@(Mode != Mode.Alterar)>Alterar</MudButton>
 		<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Excluir" hidden=@(Mode != Mode.Excluir)>Excluir</MudButton>
-		<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="Cancelar">Cancelar</MudButton>
+		<MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="Cancelar">Cancelar</MudButton>
 	</DialogActions>
-
 </MudDialog>
