@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClubeDoLivro", "ClubeDoLivr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClubeDoLivro.Blazor", "ClubeDoLivro.Blazor\ClubeDoLivro.Blazor.csproj", "{EB472E88-1DB6-4F13-9921-5747B00E2F5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClubeDoLivro.Function", "ClubeDoLivro.Function\ClubeDoLivro.Function.csproj", "{6D7F0E14-26FC-4DCB-B5E6-BAD08EFA1987}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClubeDoLivro.Function", "ClubeDoLivro.Function\ClubeDoLivro.Function.csproj", "{6D7F0E14-26FC-4DCB-B5E6-BAD08EFA1987}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

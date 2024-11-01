@@ -1,0 +1,23 @@
+﻿@page "/login"
+
+<PageTitle>Login</PageTitle>
+
+<EditForm Model="LoginRequest" OnValidSubmit="EfetuarLogin">
+
+	<MudCard>
+		<MudCardHeader>
+			<MudText Typo="Typo.h6">Autenticação no Clube do Livro</MudText>
+		</MudCardHeader>
+
+		<MudCardContent>
+			<MudTextField InputType="InputType.Email" @bind-Value="LoginRequest.EMail" Label="EMail" HelperText="Obrigatório"></MudTextField>
+			<MudTextField InputType="InputType.Password" @bind-Value="LoginRequest.Senha" Label="Senha" HelperText="Obrigatório"></MudTextField>
+		</MudCardContent>
+
+		<MudCardActions>
+			<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Outlined" Color="Color.Primary" Disabled="_loginInProgress">Login</MudButton>
+			<MudButton Variant="Variant.Outlined" Color="Color.Secondary">Registrar</MudButton>
+		</MudCardActions>
+	</MudCard>
+
+</EditForm>
