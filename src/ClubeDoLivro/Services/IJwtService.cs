@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
+﻿using ClubeDoLivro.Domains;
 using System.Security.Claims;
 
-namespace ClubeDoLivro.Blazor.Application.Security
+namespace ClubeDoLivro.Services
 {
 	public interface IJwtService
 	{
@@ -14,6 +14,7 @@ namespace ClubeDoLivro.Blazor.Application.Security
 		const string cAuthenticationType = "Bearer";
 		const string cAuthorizationHeaderName = "authorization";
 
-		public static readonly AuthenticationState Anonymous = new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+		AccessToken GerarJwtToken(Usuario usuario);
+		JwtToken GetAccessToken(string authorizationHeader);
 	}
 }

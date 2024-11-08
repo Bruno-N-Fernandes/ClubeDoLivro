@@ -9,22 +9,18 @@ using System.Security.Cryptography;
 
 namespace ClubeDoLivro.Services
 {
-    public interface IJwtService
-	{
-		AccessToken GerarJwtToken(Usuario usuario);
-	}
-
 	public class JwtService : IJwtService
 	{
+		private const string symetricKeyAuthSecret = "4KygPU/LOcJ8sGHLwN9QLaATWbzaE+GxqNn3YppPo4Mv1zN6Kl/8E6dDq5B0SLoo9uZBJKUnfScqsxPUNYRDTg==";
+		private static readonly byte[] symetricKey = Convert.FromBase64String(symetricKeyAuthSecret);
+		private static readonly SymmetricSecurityKey _symmetricSecurityKey = new SymmetricSecurityKey(symetricKey);
 		private readonly SigningCredentials _signingCredentials;
 		private readonly JwtSecurityTokenHandler _jwtSecurityTokenHandler;
+		private readonly TokenValidationParameters ValidationParameters = new() { RequireExpirationTime = true, ValidateIssuer = false, ValidateAudience = false, IssuerSigningKey = _symmetricSecurityKey };
 
 		public JwtService()
 		{
-			var symetricKeyAuthSecret = "4KygPU/LOcJ8sGHLwN9QLaATWbzaE+GxqNn3YppPo4Mv1zN6Kl/8E6dDq5B0SLoo9uZBJKUnfScqsxPUNYRDTg==";
-			var symetricKey = Convert.FromBase64String(symetricKeyAuthSecret);
-			var symmetricSecurityKey = new SymmetricSecurityKey(symetricKey);
-			_signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256Signature);
+			_signingCredentials = new SigningCredentials(_symmetricSecurityKey, SecurityAlgorithms.HmacSha256Signature);
 			_jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
 		}
 
@@ -68,6 +64,44 @@ namespace ClubeDoLivro.Services
 			yield return new Claim(ClaimTypes.MobilePhone, usuario.Telefone.ToString());
 			yield return new Claim(ClaimTypes.Expiration, expiresIn.ToString());
 			yield return new Claim("issuedAt", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"));
+		}
+
+		public JwtToken GetAccessToken(string authorizationHeader)
+		{
+			if (authorizationHeader.StartsWith(IJwtService.cAuthenticationType, StringComparison.OrdinalIgnoreCase))
+				authorizationHeader = authorizationHeader[IJwtService.cAuthenticationType.Length..].Trim();
+
+			var now = DateTime.UtcNow;
+			var claimsPrincipal = _jwtSecurityTokenHandler.ValidateToken(authorizationHeader, ValidationParameters, out var securityToken);
+
+			return new JwtToken
+			{
+				Scheme = IJwtService.cAuthenticationType,
+				Token = authorizationHeader,
+				IsValid = (securityToken != null),
+				ExpiresAt = securityToken?.ValidTo ?? now,
+				HasExpired = (securityToken?.ValidFrom > now) || (now > securityToken?.ValidTo),
+				ClaimsPrincipal = claimsPrincipal,
+				Usuario = GetUsuario(claimsPrincipal),
+			};
+		}
+
+		private Usuario GetUsuario(ClaimsPrincipal claimsPrincipal)
+		{
+			var claims = claimsPrincipal.Claims;
+			return new Usuario
+			{
+				Id = Get(claims, ClaimTypes.Sid, int.Parse),
+				Nome = Get(claims, ClaimTypes.GivenName, v => v),
+				EMail = Get(claims, ClaimTypes.Email, v => v),
+				Telefone = Get(claims, ClaimTypes.MobilePhone, v => v),
+			};
+		}
+
+		private T Get<T>(IEnumerable<Claim> claims, string claimType, Func<string, T> selector)
+		{
+			var value = claims?.FirstOrDefault(c => c.Type == claimType)?.Value;
+			return selector.Invoke(value);
 		}
 
 		private Dictionary<string, object> ToDic(IEnumerable<Claim> claims)

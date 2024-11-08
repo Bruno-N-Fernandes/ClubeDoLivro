@@ -1,6 +1,6 @@
 ﻿using Blazored.LocalStorage;
-using ClubeDoLivro.Blazor.Application.Security;
 using ClubeDoLivro.Domains;
+using ClubeDoLivro.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;

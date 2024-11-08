@@ -78,6 +78,11 @@ namespace ClubeDoLivro.Function.Abstractions
 			return await httpRequestData.GenericResponse(HttpStatusCode.Created, value);
 		}
 
+		public static async Task<HttpResponseData> UnauthorizedResponse(this HttpRequestData httpRequestData, object value)
+		{
+			return await httpRequestData.GenericResponse(HttpStatusCode.Unauthorized, value);
+		}
+
 		public static async Task<HttpResponseData> BadRequestResponse(this HttpRequestData httpRequestData, object value)
 		{
 			return await httpRequestData.GenericResponse(HttpStatusCode.BadRequest, value);
@@ -86,9 +91,9 @@ namespace ClubeDoLivro.Function.Abstractions
 		public static async Task<HttpResponseData> GenericResponse(this HttpRequestData httpRequestData, HttpStatusCode httpStatusCode, object value)
 		{
 			var response = httpRequestData.CreateResponse();
-			if (value is not null)
-				await response.WriteAsJsonAsync(value);
 			response.StatusCode = httpStatusCode;
+			if (value is not null)
+				await response.WriteAsJsonAsync(value, httpStatusCode);
 			return response;
 		}
 
