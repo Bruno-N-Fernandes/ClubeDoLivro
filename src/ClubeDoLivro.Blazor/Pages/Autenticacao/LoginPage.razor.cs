@@ -1,25 +1,26 @@
 ﻿using Blazored.LocalStorage;
+using ClubeDoLivro.Abstractions;
+using ClubeDoLivro.Blazor.Application.ClientServices.Interfaces;
+using ClubeDoLivro.Blazor.Code;
+using ClubeDoLivro.Blazor.Layout;
 using ClubeDoLivro.Domains;
 using ClubeDoLivro.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ClubeDoLivro.Blazor.Pages.Autenticacao
 {
+	[Layout(typeof(AuthLayout))]
+	[Route("/login")]
 	public partial class LoginPage
 	{
 		[Inject]
-		public HttpClient HttpClient { get; set; }
+		public IAuthenticationService AuthenticationService { get; set; }
 
 		[Inject]
 		public NavigationManager NavigationManager { get; set; }
-
-		[Inject]
-		public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
-
-		[Inject]
-		public ILocalStorageService LocalStorageService { get; set; }
 
 		[Inject]
 		public ISnackbar Snackbar { get; set; }
@@ -31,25 +32,25 @@ namespace ClubeDoLivro.Blazor.Pages.Autenticacao
 		public async Task EfetuarLogin()
 		{
 			_loginInProgress = true;
-			var response = await HttpClient.PostAsJsonAsync("Login/Authenticate", LoginRequest);
-			if (response.IsSuccessStatusCode)
+			try
 			{
-				var token = await response.Content.ReadFromJsonAsync<AccessToken>();
-				await LocalStorageService.SetItemAsStringAsync(IJwtService.cAccessToken, token.Token);
-				await LocalStorageService.SetItemAsync(IJwtService.cExpiryDate, token.ExpiresAt);
-
-				await AuthenticationStateProvider.GetAuthenticationStateAsync();
-
+				var authenticationState = await AuthenticationService.Authenticate(LoginRequest);
+				var nome = authenticationState.User.GetName();
+				Snackbar.Add($"Seja bem vindo, {nome}", Severity.Success);
 				NavigationManager.NavigateTo("/");
 			}
-			else
+			catch (ApiException ex)
 			{
-				var error = await response.Content.ReadFromJsonAsync<Message>();
-				Snackbar.Add(string.Join(";", error.Messages));
+				Snackbar.Add(ex.Message, Severity.Warning);
 			}
+			catch (Exception ex)
+			{
+				Snackbar.Add(ex.Message, Severity.Error);
+			}
+
 			_loginInProgress = false;
 		}
-    }
+	}
 
 
 	public class Message
@@ -61,11 +62,7 @@ namespace ClubeDoLivro.Blazor.Pages.Autenticacao
 		public Message(string message) => Messages = [message];
 
 		public Message(IEnumerable<string> message) => Messages = new List<string>(message);
-	}
 
-	public class LoginRequest
-	{
-        public string EMail { get; set; }
-        public string Senha { get; set; }
-    }
+		public string GetMessages(string join = "\r\n") => string.Join(join, Messages);
+	}
 }

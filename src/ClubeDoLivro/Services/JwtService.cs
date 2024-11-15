@@ -58,12 +58,11 @@ namespace ClubeDoLivro.Services
 
 		private IEnumerable<Claim> GenerateClaims(Usuario usuario, long expiresIn)
 		{
-			yield return new Claim(ClaimTypes.Sid, usuario.Id.ToString());
-			yield return new Claim(ClaimTypes.GivenName, usuario.Nome.ToString());
-			yield return new Claim(ClaimTypes.Email, usuario.EMail.ToString());
-			yield return new Claim(ClaimTypes.MobilePhone, usuario.Telefone.ToString());
-			yield return new Claim(ClaimTypes.Expiration, expiresIn.ToString());
-			yield return new Claim("issuedAt", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ"));
+			yield return new Claim(IJwtService.Sid, usuario.Id.ToString());
+			yield return new Claim(IJwtService.Name, usuario.Nome.ToString());
+			yield return new Claim(IJwtService.Email, usuario.EMail.ToString());
+			yield return new Claim(IJwtService.MobilePhone, usuario.Telefone.ToString());
+			yield return new Claim(IJwtService.Expiration, expiresIn.ToString());
 		}
 
 		public JwtToken GetAccessToken(string authorizationHeader)
@@ -91,10 +90,10 @@ namespace ClubeDoLivro.Services
 			var claims = claimsPrincipal.Claims;
 			return new Usuario
 			{
-				Id = Get(claims, ClaimTypes.Sid, int.Parse),
-				Nome = Get(claims, ClaimTypes.GivenName, v => v),
-				EMail = Get(claims, ClaimTypes.Email, v => v),
-				Telefone = Get(claims, ClaimTypes.MobilePhone, v => v),
+				Id = Get(claims, IJwtService.Sid, int.Parse),
+				Nome = Get(claims, IJwtService.Name, v => v),
+				EMail = Get(claims, IJwtService.Email, v => v),
+				Telefone = Get(claims, IJwtService.MobilePhone, v => v),
 			};
 		}
 

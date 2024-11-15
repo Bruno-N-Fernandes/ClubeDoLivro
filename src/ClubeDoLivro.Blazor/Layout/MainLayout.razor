@@ -1,44 +1,27 @@
 ﻿@inherits LayoutComponentBase
 
-@* Required *@
-<MudThemeProvider @bind-IsDarkMode="@DarkModeThemeEnabled" />
+<MudThemeProvider @bind-IsDarkMode="@DarkModeThemeEnabled" @ref="@_mudThemeProvider" />
 <MudPopoverProvider />
-
-@* Needed for dialogs *@
 <MudDialogProvider />
-
-@* Needed for snackbars *@
 <MudSnackbarProvider />
-
 
 
 
 <MudLayout>
 	<MudAppBar Dense Elevation="1">
 		<MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@(e => DrawerToggle())" />
-		<MudToggleIconButton @bind-Toggled="@DarkModeThemeEnabled" Icon="@Icons.Material.Filled.LightMode" Variant="Variant.Filled" Color="Color.Primary" ToggledIcon="@Icons.Material.Filled.DarkMode"/>
+		<MudToggleIconButton @bind-Toggled="@DarkModeThemeEnabled" Color="Color.Inherit" Icon="@Icons.Material.Filled.NightlightRound" ToggledIcon="@Icons.Material.Filled.LightMode" />
+		<TopBar />
 	</MudAppBar>
-	<MudDrawer @bind-Open="DrawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+	<MudDrawer @bind-Open="_menuIsOpen" ClipMode="DrawerClipMode.Always" Variant="DrawerVariant.Responsive" Elevation="2">
 		<NavMenu />
 	</MudDrawer>
 	<MudMainContent>
-		@Body
+		<div class="ma-2 pa-2">
+			@Body
+		</div>
 		<MudScrollToTop>
 			<MudFab Size="Size.Small" Color="Color.Primary" StartIcon="@Icons.Material.Filled.ArrowUpward" />
 		</MudScrollToTop>
 	</MudMainContent>
 </MudLayout>
-
-@code {
-
-	private bool DrawerOpen { get; set; } = true;
-	private bool _darkModeThemeEnabled;
-
-	public bool DarkModeThemeEnabled
-	{
-		get => _darkModeThemeEnabled;
-		set => _darkModeThemeEnabled = value;
-	}
-
-	private void DrawerToggle() => DrawerOpen = !DrawerOpen;
-}

@@ -1,0 +1,19 @@
+﻿<AuthorizeView>
+
+	<Authorized>
+		<MudMenu>
+			<ActivatorContent>
+				<MudAvatar Elevation="5" Color="Color.Info">@_nomeUsuario?.Substring(0, 2)</MudAvatar>
+			</ActivatorContent>
+			<ChildContent>
+				<MudMenuItem Icon="@Icons.Material.Filled.Person">Oi @_nomeUsuario</MudMenuItem>
+				<MudMenuItem Icon="@Icons.Material.Filled.Logout" OnClick="GoToLogout">LogOut</MudMenuItem>
+			</ChildContent>
+		</MudMenu>
+	</Authorized>
+
+	<NotAuthorized>
+		<MudIconButton Icon="@Icons.Material.Filled.Login" Color="Color.Secondary" OnClick="GoToLogin" />
+	</NotAuthorized>
+
+</AuthorizeView>

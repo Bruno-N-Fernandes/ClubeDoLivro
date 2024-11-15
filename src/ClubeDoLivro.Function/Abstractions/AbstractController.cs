@@ -62,7 +62,7 @@ namespace ClubeDoLivro.Function.Abstractions
 			{
 				var user = await GetCurrentUser(httpRequestData);
 				var result = function.Invoke(user);
-				return await httpRequestData.OkResponse(result);
+				return await httpRequestData.OkResponse(await result);
 			}
 			catch (AuthenticationException exception)
 			{

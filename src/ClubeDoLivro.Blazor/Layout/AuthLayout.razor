@@ -1,0 +1,22 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider IsDarkMode="@IsDarkMode" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+	<MudAppBar Dense Elevation="1">
+		<MudText Typo="Typo.h6" Class="ml-3">Clube do Livro</MudText>
+		<MudSpacer />
+		<MudFab EndIcon="@Icons.Material.Filled.Verified" Size="Size.Small" Label="@(CoreAssembly<MainLayout>.AssemblyVersion)" Style="color: var(--mud-palette-appbar-text)" />
+	</MudAppBar>
+
+	<MudMainContent>
+		<MudGrid Justify="Justify.Center" Class="mt-3">
+			<MudItem sm="12" md="4" lg="3">
+				@Body
+			</MudItem>
+		</MudGrid>
+	</MudMainContent>
+</MudLayout>

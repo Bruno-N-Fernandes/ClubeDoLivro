@@ -1,12 +1,14 @@
 ﻿using ClubeDoLivro.Blazor.Code;
 using ClubeDoLivro.Blazor.Popups;
 using ClubeDoLivro.Domains;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace ClubeDoLivro.Blazor.Pages
 {
 	[Route("/Autor")]
+	[Authorize]
 	public partial class AutorPage
 	{
 		[Inject]

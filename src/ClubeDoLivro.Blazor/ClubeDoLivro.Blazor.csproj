@@ -5,6 +5,10 @@
 		<Nullable>disable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+		<BlazorCacheBootResources>false</BlazorCacheBootResources>
+		<AssemblyVersion>2024.11.14.2133</AssemblyVersion>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<WarningsAsErrors />
 	</PropertyGroup>
 
 	<ItemGroup>

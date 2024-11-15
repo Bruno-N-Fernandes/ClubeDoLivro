@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ClubeDoLivro.Abstractions;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace ClubeDoLivro.Domains
@@ -13,5 +14,14 @@ namespace ClubeDoLivro.Domains
 
 		[JsonIgnore]
 		public bool IsValid => !string.IsNullOrWhiteSpace(EMail) && !string.IsNullOrWhiteSpace(Senha);
+	
+		public LoginRequest Criptografar()
+		{
+			return new LoginRequest
+			{
+				EMail = EMail,
+				Senha = Criptografia.Criptografar(Senha),
+			};
+		}
 	}
 }

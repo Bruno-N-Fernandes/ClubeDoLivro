@@ -25,7 +25,7 @@ namespace ClubeDoLivro.Function.Controllers
 		[OpenApiResponseWithBody(HttpStatusCode.OK, "application/json", typeof(Entity), Description = "OK response")]
 		public async Task<HttpResponseData> GetAll([HttpTrigger(AuthorizationLevel.Anonymous, "Get", Route = EntityName)] HttpRequestData httpRequestData)
 		{
-			return await CreateResponse(httpRequestData, async (user) => await Service.ObterTodos());
+			return await CreateResponse(httpRequestData, user => Service.ObterTodos());
 		}
 
 		[Function(EntityName + "GetOne")]
@@ -38,7 +38,7 @@ namespace ClubeDoLivro.Function.Controllers
 		[OpenApiResponseWithBody(HttpStatusCode.OK, "application/json", typeof(Entity), Description = "OK response")]
 		public async Task<HttpResponseData> GetOne([HttpTrigger(AuthorizationLevel.Anonymous, "Get", Route = EntityName + "/{id}")] HttpRequestData httpRequestData, int id)
 		{
-			return await CreateResponse(httpRequestData, async (user) => await Service.ObterPor(id));
+			return await CreateResponse(httpRequestData, user => Service.ObterPor(id));
 		}
 
 		[Function(EntityName + "Create")]

@@ -13,7 +13,8 @@ namespace ClubeDoLivro.Repositories
 		public async Task<Usuario> ObterPorEMailESenha(LoginRequest loginRequest)
 		{
 			var cmdSql = _querybuilder.GetCmdSqlSelectBy(" Where (Email = @EMail) And (Senha = @Senha);");
-			return await _connection.QuerySingleOrDefaultAsync<Usuario>(cmdSql, loginRequest);
+			var loginRequestCriptografado = loginRequest.Criptografar();
+			return await _connection.QuerySingleOrDefaultAsync<Usuario>(cmdSql, loginRequestCriptografado);
 		}
 	}
 }

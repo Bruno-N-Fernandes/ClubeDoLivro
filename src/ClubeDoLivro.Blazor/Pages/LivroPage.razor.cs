@@ -1,13 +1,15 @@
 ﻿using ClubeDoLivro.Blazor.Code;
 using ClubeDoLivro.Blazor.Popups;
 using ClubeDoLivro.Domains;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace ClubeDoLivro.Blazor.Pages
 {
     [Route("/Livro")]
-    public partial class LivroPage
+	[Authorize]
+	public partial class LivroPage
     {
         [Inject]
         public HttpClient HttpClient { get; set; }
